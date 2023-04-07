@@ -6,7 +6,7 @@ void    *ft_memset(void *str, int chr, size_t n)
     char    *str_ptr;
 
     // convert void pointers into char pointers
-    str_ptr = char(*str)
+    str_ptr = char(*str);
     i = 0;
     while (i < n)
     {
