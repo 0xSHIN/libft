@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <unistd.h>
 
 /* libc functions */
 int ft_isalpha(int chr);
@@ -38,7 +39,17 @@ char    *ft_strdup(const char *src);
 /* sup functions */
 
 char    *ft_strjoin(int size, char **strs, char *sep);
+
+char    *ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void ft_putchar_fd(char c, int fd);
 /* bonus functions */
 
+typedef struct s_list
+{
+		void *content;
+		struct s_list *next;
+} t_list;
+
+void ft_lstadd_front(t_list **lst, t_list *new);
 
 #endif
