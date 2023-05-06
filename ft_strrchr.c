@@ -1,23 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alyildiz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 06:14:57 by alyildiz          #+#    #+#             */
+/*   Updated: 2023/05/06 06:17:14 by alyildiz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_strrchr(const char *str, int c)
+char	*ft_strrchr(const char *str, int c)
 {
-    size_t i;
-    char chr;
+	int	i;
 
-    chr = (char)c;
-    i = ft_strlen(str);
-    i--;
-    while (i != 0)
-    {
-        if(str[i] == chr)
-            return (i);
-        i--;
-    }
-    return (NULL);
-}
-
-int main()
-{
-    printf("position %d\n", ft_strrchr("selemememe", 'm'));
+	i = ft_strlen(str);
+	while (i >= 0)
+	{
+		if (str[i] == (unsigned char)c)
+			return ((char *)&str[i]);
+		i--;
+	}
+	return (NULL);
 }

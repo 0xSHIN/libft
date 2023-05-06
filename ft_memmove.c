@@ -1,30 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alyildiz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 07:27:49 by alyildiz          #+#    #+#             */
+/*   Updated: 2023/05/06 07:31:20 by alyildiz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-void *memmove(void *dest, const void *src, size_t n) {
-    const char *s;
-    char *d;
-    d = (char *)dest;
-    s = (const char *)src;
-    size_t i;
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	const char	*s;
+	char		*d;
+	size_t		i;
 
-    if (d == s) {
-        return (dest); // Si les deux zones sont identiques, il n'y a rien à faire.
-    }
-
-    if (d < s) {
-        // Si la destination est avant la source, copiez les données de gauche à droite.
-        i = 0;
-        while (i < n) {
-            d[i] = s[i];
-            i++;
-        }
-    } else {
-        // Si la destination est après la source, copiez les données de droite à gauche.
-        while (n > 0) {
-            n--;
-            d[n] = s[n];
-        }
-    }
-
-    return (dest);
+	d = (char *)dest;
+	s = (const char *)src;
+	if (d == s)
+		return (dest);
+	if (d < s)
+	{
+		i = 0;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	}
+	while (n > 0)
+	{
+		n--;
+		d[n] = s[n];
+	}
+	return (dest);
 }
+/*
+Si les deux blocs sont identiques, return dest;
+	if (d == s)
+		return (dest); 
+
+Si la destination est avant la source, copiez les données de gauche à droite.
+Si la destination est après la source, copiez les données de droite à gauche.
+*/

@@ -1,102 +1,136 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alyildiz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 06:32:59 by alyildiz          #+#    #+#             */
+/*   Updated: 2023/05/06 06:33:00 by alyildiz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-int    ft_is_charset(char c, char *charset)
+int	ft_is_charset(char c, char charset)
 {
-    int        i;
-
-    i = 0;
-    while (charset[i])
-    {
-        if (charset[i] == c)
-            return (1);
-        i++;
-    }
-    return (0);
+	if (charset == c)
+		return (1);
+	return (0);
 }
 
-int    ft_is_word(char *str, char *charset)
+int	ft_is_word(char *str, char charset)
 {
-    int        i;
-    int        word;
+	int	i;
+	int	word;
 
-    i = 0;
-    word = 0;
-    if (!str[i])
-        return (0);
-    while (str[i])
-    {
-        while (ft_is_charset(str[i], charset) && str[i])
-            i++;
-		if (!ft_is_charset(str[i], charset) && str[i])
+	i = 0;
+	word = 0;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		while (str[i] && ft_is_charset(str[i], charset))
+			i++;
+		if (str[i] && !ft_is_charset(str[i], charset))
 		{
-				while (!ft_is_charset(str[i], charset) && str[i])
-						i++;
-				word++;
-		}
-    }
-    return (word);
-}
-
-char    **ft_malloc_word(char *str, char *charset, char **dest, int word)
-{
-    int        i;
-    int        j;
-    int        letter;
-
-    i = 0;
-    j = 0;
-    while (str[i])
-    {
-        letter = 0;
-        while (ft_is_charset(str[i], charset) && str[i])
-            i++;
-		while (!ft_is_charset(str[i], charset) && str[i])
-		{
-				letter++;
+			while (!ft_is_charset(str[i], charset) && str[i])
 				i++;
+			word++;
+		}
+	}
+	return (word);
+}
+
+char	**ft_malloc_word(char *str, char charset, char **dest, int word)
+{
+	int	i;
+	int	j;
+	int	letter;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		letter = 0;
+		while (str[i] && ft_is_charset(str[i], charset))
+			i++;
+		while (str[i] && !ft_is_charset(str[i], charset))
+		{
+			letter++;
+			i++;
 		}
 		if (j < word)
-				dest[j++] = malloc((sizeof(char) * letter) + 1);
-    }
-    return (dest);
+			dest[j++] = malloc((sizeof(char) * letter) + 1);
+	}
+	return (dest);
 }
 
-char    **ft_put_word(char *str, char *charset, char **dest)
+char	**ft_put_word(char *str, char charset, char **dest)
 {
-    int        i;
-    int        j;
-    int        k;
+	int	i;
+	int	j;
+	int	k;
 
-    i = 0;
-    k = 0;
-    while (str[i])
-    {
-        j = 0;
-        while (ft_is_charset(str[i], charset) && str[i])
-            i++;
-		if (!ft_is_charset(str[i], charset) && str[i])
+	i = 0;
+	k = 0;
+	while (str[i])
+	{
+		j = 0;
+		while (str[i] && ft_is_charset(str[i], charset))
+			i++;
+		if (str[i] && !ft_is_charset(str[i], charset))
 		{
-				while (!ft_is_charset(str[i], charset) && str[i])
-						dest[k][j++] = str[i++];
-				dest[k][j] = '\0';
-				k++;
+			while (str[i] && !ft_is_charset(str[i], charset))
+				dest[k][j++] = str[i++];
+			dest[k][j] = '\0';
+			k++;
 		}
-    }
-    return (dest);
+	}
+	return (dest);
 }
 
-char    **ft_split(char *str, char *charset)
+char	**ft_split(const char *str, char charset)
 {
-    char    **dest;
-    int        word;
+	char	**dest;
+	int		word;
+	char	*cast_str;
 
-    word = ft_is_word(str, charset);
-    dest = malloc(sizeof(char *) * (word + 1));
-    if (!dest)
-        return (0);
-    dest = ft_malloc_word(str, charset, dest, word);
-    dest = ft_put_word(str, charset, dest);
-    dest[word];
-    return (dest);
+	cast_str = (char *)str;
+	word = ft_is_word(cast_str, charset);
+	dest = malloc(sizeof(char *) * (word + 1));
+	if (!dest)
+		return (0);
+	dest = ft_malloc_word(cast_str, charset, dest, word);
+	if (!dest)
+		return (0);
+	dest = ft_put_word(cast_str, charset, dest);
+	dest[word] = NULL;
+	return (dest);
 }
+/*
+int main()
+{
+    const char *str = "Voici un exemple simple pour la fonction split";
+    char charset = ' ';
+    char **result = ft_split(str, charset);
 
+    int i = 0;
+    while (result[i] != NULL)
+    {
+        printf("Mot %d: %s\n", i + 1, result[i]);
+        i++;
+    }
+
+    // Libérer la mémoire allouée pour le résultat
+    i = 0;
+    while (result[i] != NULL)
+    {
+        free(result[i]);
+        i++;
+    }
+    free(result);
+
+    return 0;
+}
+*/

@@ -1,32 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alyildiz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 06:11:40 by alyildiz          #+#    #+#             */
+/*   Updated: 2023/05/06 06:11:58 by alyildiz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-t_list *ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int i;
-
-	i = 0;
+	if (!lst)
+		return (NULL);
 	while (lst->next != NULL)
-	{
-		i++;
 		lst = lst->next;
-	}
-	return (lst->content);
-}
-
-int main(void)
-{
-		t_list *list_test;
-		int i = 3;
-		t_list *first;
-		list_test = malloc(sizeof(t_list));
-		first = list_test;
-		while (i)
-		{
-				list_test->next= malloc(sizeof(t_list));
-				list_test = list_test->next;
-				i--;
-		}
-		list_test = first;
-		printf("taille = %d \n", ft_lstlast(list_test));
-		return (0);
+	return (lst);
 }

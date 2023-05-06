@@ -1,38 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alyildiz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 07:23:05 by alyildiz          #+#    #+#             */
+/*   Updated: 2023/05/06 07:26:31 by alyildiz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-const char *strnstr(const char *haystack, const char *needle, size_t haystacklen) {
-    if (!*needle) {
-        return haystack;
-    }
+char	*ft_strnstr(const char *big, const char *little, size_t len)
+{
+	size_t	i;
+	size_t	j;
+	size_t	d;
 
-    const char *needle_ptr;
-    const char *haystack_ptr;
-    size_t needlelen;
-
-    // Calculer la longueur de needle
-    needle_ptr = needle;
-    while (*needle_ptr++) {
-    }
-    needlelen = needle_ptr - needle - 1;
-
-    // Rechercher needle dans haystack, en tenant compte de haystacklen
-    while (*haystack && haystacklen >= needlelen) {
-        haystack_ptr = haystack;
-        needle_ptr = needle;
-
-        while (haystacklen && *haystack_ptr == *needle_ptr) {
-            haystack_ptr++;
-            needle_ptr++;
-            haystacklen--;
-        }
-
-        if (!*needle_ptr) {
-            return haystack;
-        }
-
-        haystack++;
-        haystacklen--;
-    }
-
-    return NULL;
+	d = 0;
+	j = 0;
+	i = 0;
+	if (little[0] == '\0')
+		return ((char *)big);
+	while (i < len && ft_strlen(little) < ft_strlen(big))
+	{
+		while (big[i + j] == little[j] && i + j < len)
+		{
+			d++;
+			if (d == ft_strlen(little))
+				return ((char *)big + i);
+			j++;
+		}
+	i++;
+	j = 0;
+	d = 0;
+	}
+	return (NULL);
 }
