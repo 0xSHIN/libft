@@ -6,7 +6,7 @@
 /*   By: alyildiz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 07:27:49 by alyildiz          #+#    #+#             */
-/*   Updated: 2023/05/06 07:31:20 by alyildiz         ###   ########.fr       */
+/*   Updated: 2023/05/07 19:04:10 by alyildiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 
 	d = (char *)dest;
 	s = (const char *)src;
-	if (d == s)
-		return (dest);
 	if (d < s)
 	{
 		i = 0;
@@ -31,10 +29,13 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 			i++;
 		}
 	}
-	while (n > 0)
+	else
 	{
-		n--;
-		d[n] = s[n];
+		while (n > 0)
+		{
+			n--;
+			d[n] = s[n];
+		}
 	}
 	return (dest);
 }
